@@ -9,6 +9,7 @@
   "author": "volodymyrtymets",
   "license": "ISC",
   "dependencies": {
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "onoff": "^1.1.2"
   }
 }
