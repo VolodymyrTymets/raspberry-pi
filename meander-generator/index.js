@@ -1,4 +1,7 @@
 const generateMeanderFor = require('./generator');
 
+const time =  process.argv[3] || 500;
+const gpio =  process.argv[4] || 21;
+
 console.log('Start for 14:')
-generateMeanderFor('14', 20); // for 14 BCM pinm each 20 ms
+generateMeanderFor(gpio, time); // for 14 BCM pinm each 20 ms
