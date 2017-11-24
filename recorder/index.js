@@ -32,7 +32,7 @@ micInputStream.on('error', function(err) {
 });
  
 micInputStream.on('stopComplete', function() {
-    const all = Buffer.concat([header(micSettings.rate * 1024) , buffer]);
+    const all = Buffer.concat([header(micSettings.rate  * 1024, micSettings) , buffer]);
     fs.writeFile(`./assets/${fileName}.wav`, all, err => {
       if(err) {
         console.log(err);
