@@ -1,2 +1,2 @@
-meander-generator/mananode_modules
-recorder/mananode_modules
+meander-generator/node_modules
+./recorder/node_modules
