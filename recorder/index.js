@@ -1,7 +1,9 @@
-var mic = require('mic');
-var fs = require('fs');
+const mic = require('mic');
+const fs = require('fs');
 const header = require("waveheader");
-var keypress = require('keypress');
+const keypress = require('keypress');
+const WavDecoder = require('wav-decoder');
+const { Segmenter } = require('./src/segmenter');
 
 const micMunber = process.argv[2];
 const fileName = process.argv[3];
@@ -16,14 +18,21 @@ const micSettings =  {
   exitOnSilence: 6,
   device: `plughw:${micMunber}`,
 };
-
+const sums = []
 let buffer = new Buffer([]);
 
 var micInstance = mic(micSettings);
 var micInputStream = micInstance.getAudioStream();
  
 micInputStream.on('data', function(data) {
-    buffer = Buffer.concat([buffer, data]);
+    buffer = Buffer.concat([buffer, data]);    
+    WavDecoder.decode(Buffer.concat([header(micSettings.rate  * 1024, micSettings), data]))
+    .then(audioData => {
+      const wave = audioData.channelData[0]; 
+      const sum = new Segmenter().getSum(wave);     
+      sums.push(sum)
+    })
+    .catch(console.log);
 });
  
 micInputStream.on('error', function(err) {
@@ -39,6 +48,7 @@ micInputStream.on('stopComplete', function() {
         process.exit(0);
       }
       console.log('Recored Successful...')
+      console.log(sums)
       process.exit(1);
     });
 });

@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "keypress": "^0.2.1",
+    "lodash": "^4.17.4",
     "mic": "^2.1.2",
+    "wav-decoder": "^1.3.0",
     "waveheader": "0.0.2"
   }
 }
