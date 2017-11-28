@@ -20,7 +20,7 @@ class Segmentor extends EventEmitter {
     this._waves = [];
   }
 
-  getSum (wave)  {
+  getSumOfMin (wave)  {
     const means = [];
     for (let index = 0; index < wave.length; index = index + N) {
         const slice = wave.slice(index, index + N);
@@ -29,7 +29,18 @@ class Segmentor extends EventEmitter {
         means.push(mean);
     }
     return _.min(_.flatten(means));
-  };   
+  }
+
+  getSumOfAverage (wave)  {
+    const means = [];
+    for (let index = 0; index < wave.length; index = index + N) {
+      const slice = wave.slice(index, index + N);
+
+      const mean = _.sumBy(slice, Math.abs);
+      means.push(mean);
+    }
+    return _.mean(_.flatten(means));
+  }
 }
 
 module.exports = Segmentor;

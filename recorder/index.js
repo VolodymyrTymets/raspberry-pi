@@ -2,6 +2,7 @@ const mic = require('mic');
 const fs = require('fs');
 const header = require("waveheader");
 const keypress = require('keypress');
+const jsonfile = require('jsonfile');
 const WavDecoder = require('wav-decoder');
 const { Segmenter } = require('./src/segmenter');
 
@@ -18,7 +19,8 @@ const micSettings =  {
   exitOnSilence: 6,
   device: `plughw:${micMunber}`,
 };
-const sums = []
+const sumOfMins = [];
+const sumOfAverages = [];
 let buffer = new Buffer([]);
 
 var micInstance = mic(micSettings);
@@ -29,8 +31,11 @@ micInputStream.on('data', function(data) {
     WavDecoder.decode(Buffer.concat([header(micSettings.rate  * 1024, micSettings), data]))
     .then(audioData => {
       const wave = audioData.channelData[0]; 
-      const sum = new Segmenter().getSum(wave);     
-      sums.push(sum)
+      const sumOfMin = new Segmenter().getSumOfMin(wave);
+      const sumOfAverage = new Segmenter().getSumOfAverage(wave);
+      console.log('sum ->', wave)
+      sumOfMins.push(sumOfMin);
+      sumOfAverages.push(sumOfAverage);
     })
     .catch(console.log);
 });
@@ -42,15 +47,26 @@ micInputStream.on('error', function(err) {
  
 micInputStream.on('stopComplete', function() {
     const all = Buffer.concat([header(micSettings.rate  * 1024, micSettings) , buffer]);
-    fs.writeFile(`./assets/${fileName}.wav`, all, err => {
-      if(err) {
-        console.log(err);
-        process.exit(0);
-      }
-      console.log('Recored Successful...')
-      console.log(sums)
-      process.exit(1);
-    });
+    WavDecoder.decode(all)
+      .then(audioData => {
+        fs.writeFile(`./assets/${fileName}.wav`, all, err => {
+          if(err) {
+            console.log(err);
+            process.exit(0);
+          }
+          jsonfile.writeFile(`./assets/${fileName}.json`, {
+            total: audioData.channelData[0].length,
+            slices: sumOfMins.length,
+            sumOfMin: sumOfMins,
+            sumOfAverages: sumOfAverages
+          }, () => {
+            console.log('Recored Successful...')
+            process.exit(1);
+          });
+        });
+      })
+      .catch(console.log);
+
 });
 
 micInstance.start();
