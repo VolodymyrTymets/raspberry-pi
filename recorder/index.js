@@ -32,8 +32,7 @@ micInputStream.on('data', function(data) {
     .then(audioData => {
       const wave = audioData.channelData[0]; 
       const sumOfMin = new Segmenter().getSumOfMin(wave);
-      const sumOfAverage = new Segmenter().getSumOfAverage(wave);
-      console.log('sum ->', wave)
+      const sumOfAverage = new Segmenter().getSumOfAverage(wave); 
       sumOfMins.push(sumOfMin);
       sumOfAverages.push(sumOfAverage);
     })
