@@ -1,4 +1,4 @@
-const generateMeanderFor = require('./generator');
+const generateMeanderFor = require('./generator_1');
 
 const time =  process.argv[2] || 500;
 const gpio =  parseInt(process.argv[3]) || 21;
