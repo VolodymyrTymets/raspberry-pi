@@ -1,8 +1,8 @@
-const Gpio = require('onoff').Gpio;
+//const Gpio = require('onoff').Gpio;
 
 const generateMeanderFor = (number, time) => {
   let step = false;
-  const out = new Gpio(number, 'out');
+  //const out = new Gpio(number, 'out');
   setInterval(function () {
     step = !step;
     if (step) {
@@ -12,12 +12,9 @@ const generateMeanderFor = (number, time) => {
         const now = process.hrtime();
         const diff = process.hrtime(previous);
         const stepDif = process.hrtime(stepPrevious);
-        if (diff[1] / (1000 * 1000) > 1) {
-          out.writeSync(out.readSync() ^ 1);
-          previous = now;
-        }
+        console.log('-->', diff[1] / 1000)
+        previous = now;
         if (stepDif[1] / (1000 * 1000) > time) {
-          console.log('break');
           stepPrevious = now;
           break;
         }
