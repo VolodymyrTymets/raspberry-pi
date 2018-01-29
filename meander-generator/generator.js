@@ -5,6 +5,6 @@ const generateMeanderFor = (number, time) => {
   setInterval(function () {
     out.writeSync(out.readSync() ^ 1);
   }, time);
-}
+};
 
 module.exports = generateMeanderFor;
