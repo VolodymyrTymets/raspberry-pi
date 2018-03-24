@@ -29,6 +29,8 @@ do {
   isOn = !isOn;
   if (!isOn) {
     turnOn = 2;
+  } else {
+    turnOn = 1;
   }
 
   if (out1) {
