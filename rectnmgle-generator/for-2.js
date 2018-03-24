@@ -37,9 +37,9 @@ do {
     console.log('for ->', turnOn)
     if (turnOn === 1) {
       out1.writeSync(isOn ? 1: 0);
-      out2.writeSync(0);
+      //out2.writeSync(0);
     } else {
-      out1.writeSync(0);
+     // out1.writeSync(0);
       out2.writeSync(isOn ? 1: 0);
     }
   } else {
