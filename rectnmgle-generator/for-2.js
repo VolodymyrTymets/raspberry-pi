@@ -7,6 +7,7 @@ const frequently =  1000000 / freqArg;
 const timeONinPersent =  process.argv[3] || 50;
 const gpioNumber1 =  parseInt(process.argv[4]) || 14;
 const gpioNumber2 =  parseInt(process.argv[5]) || 15;
+const debug =  !!process.argv[6] || false;
 
 let out1 = null;
 let out2 = null;
@@ -33,14 +34,14 @@ do {
     frequently * (timeONinPersent / 100) :
     frequently - (frequently * (timeONinPersent / 100));
 
-  console.log(`_________${step}___________`);
+  debug && console.log(`_________${step}___________`);
   if (step === 1) {
-    console.log(`[${1}] -> ${out1On ? 'on' : 'of'}`);
+    debug && console.log(`[${1}] -> ${out1On ? 'on' : 'of'}`);
     out2 && out2.writeSync(0);
     out1 && out1.writeSync(out1On ? 1: 0);
     out1On = !out1On;
   } else {
-    console.log(`[${2}] -> ${out2On ? 'on' : 'of'}`);
+    debug && console.log(`[${2}] -> ${out2On ? 'on' : 'of'}`);
     out1 && out1.writeSync(0);
     out2 && out2.writeSync(out2On ? 1: 0);
     out2On = !out2On;
