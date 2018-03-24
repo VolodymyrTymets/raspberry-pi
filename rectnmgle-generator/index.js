@@ -20,7 +20,7 @@ do {
     frequently - (frequently * (timeONinPersent / 100));
   isOn = !isOn;
   if (out) {
-    out.writeSync(isOn);
+    out.writeSync(isOn ? 1: 0);
     console.log(isOn ? 'on': 'of');
   } else {
     console.log(isOn ? 'on': 'of');
