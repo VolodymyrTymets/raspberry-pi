@@ -3,7 +3,7 @@ const Gpio = require('onoff').Gpio;
 
 const frequently =  process.argv[2] || 440;
 const timeONinPersent =  process.argv[3] || 20;
-const gpioNumber =  parseInt(process.argv[3]) || 21;
+const gpioNumber =  parseInt(process.argv[4]) || 21;
 
 let isOn = true;
 let out = null;
