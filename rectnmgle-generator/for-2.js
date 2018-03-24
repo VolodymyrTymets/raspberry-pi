@@ -17,29 +17,34 @@ try {
   console.log(`run on gpio [${gpioNumber1}] [${gpioNumber2}] with frequently${freqArg} Hz (every ${frequently} and ${timeONinPersent}% on.`);
   out1 = new Gpio(gpioNumber1, 'out');
   out2 = new Gpio(gpioNumber2, 'out');
+  out1.writeSync(0);
+  out2.writeSync(0);
+
 } catch (err) {
   console.log('GPIO is not detected!!!');
 }
 
 do {
-  const oneStepFrequently = frequently / 2;
+  // const oneStepFrequently = frequently / 2;
+  // const toSleep = !isOn ?
+  //   oneStepFrequently * (timeONinPersent / 100) :
+  //   oneStepFrequently - (oneStepFrequently * (timeONinPersent / 100));
+
   const toSleep = !isOn ?
-    oneStepFrequently * (timeONinPersent / 100) :
-    oneStepFrequently - (oneStepFrequently * (timeONinPersent / 100));
+    frequently * (timeONinPersent / 100) :
+    frequently - (frequently * (timeONinPersent / 100));
   isOn = !isOn;
-  if (!isOn) {
-    turnOn = 2;
-  } else {
-    turnOn = 1;
-  }
+  turnOn = !isOn ? 2: 1;
 
   if (out1) {
-    console.log('for ->', turnOn)
     if (turnOn === 1) {
+      console.log(`[${1}] -> ${isOn ? 'on' : 'of'}`);
       out1.writeSync(isOn ? 1: 0);
-      //out2.writeSync(0);
-    } else {
-     // out1.writeSync(0);
+      out2.writeSync(0);
+    }
+    if(turnOn === 2) {
+      console.log(`[${2}] -> ${isOn ? 'on' : 'of'}`);
+      out1.writeSync(0);
       out2.writeSync(isOn ? 1: 0);
     }
   } else {
