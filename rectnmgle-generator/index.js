@@ -9,6 +9,7 @@ let isOn = true;
 let out = null;
 try {
   out = new Gpio(gpioNumber, 'out');
+  console.log('run on gpio ->', gpioNumber);
 } catch (err) {
   console.log('GPIO is not detected!!!');
 }
