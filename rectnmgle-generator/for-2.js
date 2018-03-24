@@ -11,6 +11,7 @@ const gpioNumber2 =  parseInt(process.argv[5]) || 15;
 let isOn = true;
 let out1 = null;
 let out2 = null;
+let turnOn = 1;
 
 try {
   console.log(`run on gpio [${gpioNumber1}] [${gpioNumber2}] with frequently${freqArg} Hz (every ${frequently} and ${timeONinPersent}% on.`);
@@ -21,7 +22,6 @@ try {
 }
 
 do {
-  let turnOn = 1;
   const oneStepFrequently = frequently / 2;
   const toSleep = !isOn ?
     oneStepFrequently * (timeONinPersent / 100) :
