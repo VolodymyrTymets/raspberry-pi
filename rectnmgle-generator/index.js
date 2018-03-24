@@ -21,6 +21,7 @@ do {
   isOn = !isOn;
   if (out) {
     out.writeSync(isOn);
+    console.log(isOn ? 'on': 'of');
   } else {
     console.log(isOn ? 'on': 'of');
   }
