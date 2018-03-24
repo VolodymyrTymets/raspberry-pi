@@ -8,18 +8,17 @@ const timeONinPersent =  process.argv[3] || 50;
 const gpioNumber1 =  parseInt(process.argv[4]) || 14;
 const gpioNumber2 =  parseInt(process.argv[5]) || 15;
 
-let isOn = true;
 let out1 = null;
 let out2 = null;
-let turnOn = 1;
+let out1On = true;
+let out2On = false;
+let isOn = true;
+let step = 1;
 
 try {
   console.log(`run on gpio [${gpioNumber1}] [${gpioNumber2}] with frequently${freqArg} Hz (every ${frequently} and ${timeONinPersent}% on.`);
   out1 = new Gpio(gpioNumber1, 'out');
   out2 = new Gpio(gpioNumber2, 'out');
-  out1.writeSync(0);
-  out2.writeSync(0);
-
 } catch (err) {
   console.log('GPIO is not detected!!!');
 }
@@ -33,27 +32,23 @@ do {
   const toSleep = !isOn ?
     frequently * (timeONinPersent / 100) :
     frequently - (frequently * (timeONinPersent / 100));
-  isOn = !isOn;
-  turnOn = !isOn ? 2: 1;
 
-  if (out1) {
-    if (turnOn === 1) {
-      console.log(`[${1}] -> ${isOn ? 'on' : 'of'}`);
-      out1.writeSync(isOn ? 1: 0);
-      out2.writeSync(0);
-    }
-    if(turnOn === 2) {
-      console.log(`[${2}] -> ${isOn ? 'on' : 'of'}`);
-      out1.writeSync(0);
-      out2.writeSync(isOn ? 1: 0);
-    }
+  console.log(`_________${step}___________`);
+  if (step === 1) {
+    console.log(`[${1}] -> ${out1On ? 'on' : 'of'}`);
+    out2 && out2.writeSync(0);
+    out1 && out1.writeSync(out1On ? 1: 0);
+    out1On = !out1On;
   } else {
-    if (turnOn === 1) {
-      console.log(isOn ? '1-> on': '1 -> of');
-    } else {
-      console.log(isOn ? '2 -> on': '2 -> of');
-    }
-
+    console.log(`[${2}] -> ${out2On ? 'on' : 'of'}`);
+    out1 && out1.writeSync(0);
+    out2 && out2.writeSync(out2On ? 1: 0);
+    out2On = !out2On;
+  }
+  isOn = !isOn;
+  step ++;
+  if (step > 2) {
+    step = 1;
   }
   sleep.usleep(_.round(toSleep));
 } while (true);
