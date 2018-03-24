@@ -21,15 +21,31 @@ try {
 }
 
 do {
+  let turnOn = 1;
+  const oneStepFrequently = frequently / 2;
   const toSleep = !isOn ?
-    frequently * (timeONinPersent / 100) :
-    frequently - (frequently * (timeONinPersent / 100));
+    oneStepFrequently * (timeONinPersent / 100) :
+    oneStepFrequently - (oneStepFrequently * (timeONinPersent / 100));
   isOn = !isOn;
+  if (!isOn) {
+    turnOn = 2;
+  }
+
   if (out1) {
-    out1.writeSync(isOn ? 1: 0);
-    out2.writeSync(isOn ? 0: 1);
+    if (turnOn === 1) {
+      out1.writeSync(isOn ? 1: 0);
+      out2.writeSync(0);
+    } else {
+      out1.writeSync(0);
+      out2.writeSync(isOn ? 1: 0);
+    }
   } else {
-    console.log(isOn ? 'on': 'of');
+    if (turnOn === 1) {
+      console.log(isOn ? '1-> on': '1 -> of');
+    } else {
+      console.log(isOn ? '2 -> on': '2 -> of');
+    }
+
   }
   sleep.usleep(_.round(toSleep));
 } while (true);
