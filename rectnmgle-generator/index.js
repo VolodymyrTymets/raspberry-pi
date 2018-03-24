@@ -1,7 +1,7 @@
 const sleep = require('sleep');
 const Gpio = require('onoff').Gpio;
 
-const frequently =  process.argv[2] || 440;
+const frequently =  1000000 / (process.argv[2] || 1);
 const timeONinPersent =  process.argv[3] || 20;
 const gpioNumber =  parseInt(process.argv[4]) || 21;
 
@@ -25,5 +25,5 @@ do {
   } else {
     console.log(isOn ? 'on': 'of');
   }
-  sleep.msleep(toSleep);
+  sleep.usleep(toSleep);
 } while (true);
