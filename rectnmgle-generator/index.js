@@ -21,7 +21,7 @@ const times = [
   process.argv[5] && parseInt(process.argv[5]) || 166,
   process.argv[6] && parseInt(process.argv[6]) || 166,
   process.argv[7] && parseInt(process.argv[7]) || 166,
-].map(t => t * 100);
+].map(t => t * 1000);
 
 console.log('times ->', times);
 
