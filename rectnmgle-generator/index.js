@@ -23,12 +23,11 @@ const times = [
   process.argv[7] && parseInt(process.argv[7]) || 166,
 ].map(t => t * 100);
 
-console.log('times ->', times)
+console.log('times ->', times);
 
 do {
   if(step === 6) {
     step = 0;
-
   }
   if(step === 2) {
     out1.writeSync(1)
@@ -42,7 +41,6 @@ do {
   if(step === 6) {
     out2.writeSync(0)
   }
-  process.stdout.write(str);
   sleep.usleep(times[step] - 1);
   step ++;
 } while (true);
