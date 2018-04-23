@@ -1,23 +1,24 @@
 const _ = require('lodash');
 const sleep = require('sleep');
 
-const freqArg = process.argv[2] || 1;
-const frequently =  1000000 / freqArg;
-const timeONinPersent =  process.argv[3] || 50;
-const gpioNumber1 =  parseInt(process.argv[4]) || 14;
-const gpioNumber2 =  parseInt(process.argv[5]) || 15;
-const debug =  !!process.argv[6] || false;
-
 let step = 0;
-const times = [50, 50, 50, 50, 50, 50];
+const times = [
+  process.argv[2] && parseInt(process.argv[2]) || 166,
+  process.argv[3] && parseInt(process.argv[3]) || 166,
+  process.argv[4] && parseInt(process.argv[4]) || 166,
+  process.argv[5] && parseInt(process.argv[5]) || 166,
+  process.argv[6] && parseInt(process.argv[6]) || 166,
+  process.argv[7] && parseInt(process.argv[7]) || 166,
+].map(t => t * 100);
 
+console.log('times ->', times)
 let str = '_';
 
 do {
-  sleep.usleep(times[step] * 100);
+  sleep.usleep(times[step]);
 
   step ++;
-  if(step > 5) {
+  if(step === 5) {
     step = 0;
     str = str + '  ';
   }
