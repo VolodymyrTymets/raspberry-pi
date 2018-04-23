@@ -15,9 +15,7 @@ console.log('times ->', times)
 let str = '_';
 
 do {
-  sleep.usleep(times[step]);
 
-  step ++;
   if(step === 5) {
     step = 0;
     str = str + '  ';
@@ -27,4 +25,6 @@ do {
   }
   str = str + '_';
   process.stdout.write(str);
+  sleep.usleep(times[step]);
+  step ++;
 } while (true);
