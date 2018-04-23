@@ -26,6 +26,10 @@ const times = [
 console.log('times ->', times);
 
 do {
+  if(step === 6) {
+    step = 0;
+    out2.writeSync(0);
+  }
   if(step === 2) {
     out1.writeSync(1)
   }
@@ -35,14 +39,6 @@ do {
   if(step === 5) {
     out2.writeSync(1)
   }
-  if(step === 6) {
-    out2.writeSync(0)
-  }
-  if(step === 6) {
-    step = 1;
-  }
-  console.log('-->>',step);
-  console.log('-- times[step] - 1>>',times[step] - 1);
   sleep.usleep(times[step] - 1);
   step ++;
 } while (true);
