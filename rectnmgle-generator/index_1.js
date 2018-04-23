@@ -46,7 +46,7 @@ do {
     out2.writeSync(1)
   }
   console.log('--->', step)
-  console.log('--->', times[step] - 1)
-  times[step] - 1 && sleep.usleep(times[step] - 1);
+  console.log('--->', times[step -1])
+  times[step] - 1 && sleep.usleep(times[step -1]);
   step ++;
 } while (true);
