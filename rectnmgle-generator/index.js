@@ -41,6 +41,7 @@ do {
   if(step === 6) {
     out2.writeSync(0)
   }
+  console.log('-->>',step)
   sleep.usleep(times[step] - 1);
   step ++;
 } while (true);
