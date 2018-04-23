@@ -26,7 +26,7 @@ const times = [
 console.log('times ->', times);
 
 do {
-  if(step === 6) {
+  if(step === 7) {
     step = 0;
   }
   if(step === 2) {
