@@ -27,7 +27,7 @@ const positionMap = {
 };
 
 
-let step = 0;
+let step = 1;
 const times = positionMap[position] || positionMap['1'];
 console.log('times ->', times)
 
@@ -45,7 +45,7 @@ do {
   if(step === 5) {
     out2.writeSync(1)
   }
-  console.log('--->', times[step] - 1)
-  times[step] - 1 && sleep.usleep(times[step] - 1);
+  console.log('--->', (times[step] - 1))
+  (times[step] - 1) && sleep.usleep(times[step] - 1);
   step ++;
 } while (true);
