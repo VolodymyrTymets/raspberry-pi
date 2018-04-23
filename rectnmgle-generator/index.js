@@ -27,7 +27,7 @@ console.log('times ->', times);
 
 do {
   if(step === 7) {
-    step = 0;
+    step = 1;
   }
   if(step === 2) {
     out1.writeSync(1)
