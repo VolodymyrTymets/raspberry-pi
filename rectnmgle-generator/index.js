@@ -1,7 +1,19 @@
 const _ = require('lodash');
 const sleep = require('sleep');
+const Gpio = require('onoff').Gpio;
 
-let step = 0;
+let out1 = null;
+let out2 = null;
+try {
+  console.log(`run on gpio [14] [15]`);
+  out1 = new Gpio(14, 'out');
+  out2 = new Gpio(15, 'out');
+} catch (err) {
+  console.log('Error -> GPIO is not detected!!!');
+  process.exit();
+}
+
+let step = 1;
 const times = [
   process.argv[2] && parseInt(process.argv[2]) || 166,
   process.argv[3] && parseInt(process.argv[3]) || 166,
@@ -12,19 +24,25 @@ const times = [
 ].map(t => t * 100);
 
 console.log('times ->', times)
-let str = '_';
 
 do {
-
-  if(step === 5) {
+  if(step === 6) {
     step = 0;
-    str = str + '  ';
+
   }
   if(step === 2) {
-    str = str + '-'
+    out1.writeSync(1)
   }
-  str = str + '_';
+  if(step === 3) {
+    out1.writeSync(0)
+  }
+  if(step === 5) {
+    out2.writeSync(1)
+  }
+  if(step === 6) {
+    out2.writeSync(0)
+  }
   process.stdout.write(str);
-  sleep.usleep(times[step]);
+  sleep.usleep(times[step] - 1);
   step ++;
 } while (true);
