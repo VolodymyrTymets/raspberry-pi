@@ -33,7 +33,7 @@ console.log('times ->', times)
 
 do {
   if(step === 6) {
-    step = 0;
+    step = 1;
     out2.writeSync(0);
   }
   if(step === 2) {
