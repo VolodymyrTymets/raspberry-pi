@@ -45,7 +45,7 @@ do {
   if(step === 5) {
     out2.writeSync(1)
   }
-  console.log('--->', imes[step] - 1)
+  console.log('--->', times[step] - 1)
   times[step] - 1 && sleep.usleep(times[step] - 1);
   step ++;
 } while (true);
