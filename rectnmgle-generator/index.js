@@ -9,7 +9,7 @@ let out2 = null;
 let step = 1;
 
 const params = [2, 3, 4, 5, 6, 7].map(p => parseInt(process.argv[p]));
-const times = params.map(t => _.isNumber(t) && ! _.isNaN(t) ? t * 1000 : 166 * 1000);
+const times = params.map(t => _.isNumber(t) && ! _.isNaN(t) ? t : 166 * 1000);
 console.log('times ->', times);
 
 try {
