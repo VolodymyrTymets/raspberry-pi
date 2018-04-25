@@ -34,7 +34,7 @@ console.log('times ->', times)
 do {
   if(step === 6) {
     step = 1;
-    out2.writeSync(0);
+    out2.writeSync(1);
   }
   if(step === 2) {
     out1.writeSync(1)
@@ -43,7 +43,7 @@ do {
     out1.writeSync(0)
   }
   if(step === 5) {
-    out2.writeSync(1)
+    out2.writeSync(0)
   }
   times[step] - 1 && sleep.usleep(times[step -1]);
   step ++;
