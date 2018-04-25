@@ -4,6 +4,14 @@ const Gpio = require('onoff').Gpio;
 
 let out1 = null;
 let out2 = null;
+
+
+let step = 1;
+
+const params = [2, 3, 4, 5, 6, 7].map(p => parseInt(process.argv[p]));
+const times = params.map(t => _.isNumber(t) && ! _.isNaN(t) ? t * 1000 : 166 * 1000);
+console.log('times ->', times);
+
 try {
   console.log(`run on gpio [14] [15]`);
   out1 = new Gpio(14, 'out');
@@ -12,18 +20,6 @@ try {
   console.log('Error -> GPIO is not detected!!!');
   process.exit();
 }
-
-let step = 1;
-const times = [
-  process.argv[2] && parseInt(process.argv[2]) || 166,
-  process.argv[3] && parseInt(process.argv[3]) || 166,
-  process.argv[4] && parseInt(process.argv[4]) || 166,
-  process.argv[5] && parseInt(process.argv[5]) || 166,
-  process.argv[6] && parseInt(process.argv[6]) || 166,
-  process.argv[7] && parseInt(process.argv[7]) || 166,
-].map(t => t * 1000);
-
-console.log('times ->', times);
 
 do {
   if(step === 6) {
