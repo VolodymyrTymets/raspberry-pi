@@ -23,7 +23,8 @@ console.log(stepTime, position);
 
 const positionMap = {
   '1': [stepTime, stepTime, stepTime, stepTime, stepTime, stepTime],
-  '2': [0, stepTime * 2, stepTime, 0, stepTime * 2, stepTime]
+  '2': [0, stepTime * 2, stepTime, 0, stepTime * 2, stepTime],
+  '3': [0, stepTime * 2, 0, 0, stepTime * 2, 0]
 };
 
 
